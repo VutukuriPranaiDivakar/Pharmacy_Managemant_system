@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      let json = localStorage.getItem('info');
+      let obj = JSON.parse(json);
+      if(json){
+        if(obj.pos !== 'manager'){
+          location.href = '/'+obj.pos;
+        }
+      }else{
+        location.href = '/login'
+      }
+    </script>
+    <title>View Users | Pharmacy System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/header-nav.css" />
+    <link rel="stylesheet" href="./css/main-with-table.css" />
+    <link rel="stylesheet" href="./css/add-form.css" />
+    <script src="./js/change-content.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo-cont">
+        <img
+          src="./assets/logos/logo.png"
+          class="main-logo"
+          height="75"
+          width="75"
+        />
+      </div>
+      <h1>
+        <a href="#">Pharmacy System</a>
+      </h1>
+    </header>
+    <aside>
+      <ul class="aside-list">
+        <li class="list-item"><a href="/manager">Dashboard</a></li>
+        <li class="list-item"><a href="#">View Users</a></li>
+        <li class="list-item"><a href="/manager/presc">View Prescriptions</a></li>
+        <li class="list-item"><a href="/manager/stocks">Manage Stock</a></li>
+        <li class="list-item"><a href="/logout">Logout</a></li>
+      </ul>
+    </aside>
+    <main>
+      <section class="main-content">
+        <h2 class="title">View users</h2>
+        <div class="container">
+          <ul class="tabs-list">
+            <li class="tab-item active" data-goto="table1">
+              <h3 class="tab-title">Pharmacists</h3>
+            </li>
+            <li class="tab-item" data-goto="table2">
+              <h3 class="tab-title">Cashiers</h3>
+            </li>
+            <li class="tab-item" data-goto="table3">
+              <h3 class="tab-title">Managers</h3>
+            </li>
+          </ul>
+          <div class="content">
+            <table class="tab-content" id="table1">
+              <tr>
+                <th>Staff ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Salary</th>
+                <th>Phone</th>
+              </tr>
+              <% if(locals.pharmacists && locals.pharmacists.length) {
+                locals.pharmacists.forEach(ph =>{%> 
+              <tr>
+                <% for(key in ph){ %>
+                <td><%= ph[key] %></td>
+                <% }%>
+              </tr>
+              <% })} %>
+            </table>
+            <table class="hidden tab-content" id="table2">
+              <tr>
+                <th>Staff ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Salary</th>
+                <th>Phone</th>
+              </tr>
+              <% if(locals.cashiers && locals.cashiers.length) {
+                locals.cashiers.forEach(cs =>{%> 
+              <tr>
+                <% for(key in cs){ %>
+                <td><%= cs[key] %></td>
+                <% }%>
+              </tr>
+              <% })} %>
+            </table>
+            <table class="hidden tab-content" id="table3">
+              <tr>
+                <th>Staff ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Salary</th>
+                <th>Phone</th>
+              </tr>
+              <% if(locals.managers && locals.managers.length) {
+                locals.managers.forEach(mg =>{%> 
+              <tr>
+                <% for(key in mg){ %>
+                <td><%= mg[key] %></td>
+                <% }%>
+              </tr>
+              <% })} %>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

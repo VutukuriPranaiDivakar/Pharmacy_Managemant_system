@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pharmacy System</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <% 
+        let obj = {name: locals.name,
+                    pos: locals.pos};
+        let str = JSON.stringify(obj);
+      %> 
+      <% if(locals.removeAndRefresh){ %> 
+        <script>
+          localStorage.removeItem('info');
+          location.href = 'login';
+        </script>
+        <% } %> 
+      <script>
+        let json = localStorage.getItem('info');
+        if(json){
+          let obj = JSON.parse(json);
+          location.href = '/'+obj.pos;
+        }
+      </script>
+  </head>
+  <body>
+    <section class="content" 
+    <% if(!locals.removeAndRefresh){
+     if(locals.success){%>
+    data-togo='<%= str %>' <% } }%>>
+      <header id="header">
+        <h1 class="main-heading">Pharmacy System</h1>
+      </header>
+      <form class="login-form" action="/login" method="post">
+        <h2 class="sub-heading">Login here</h2>
+        <% if(!locals.removeAndRefresh){
+           if(locals.message){ %> 
+          <p class="tred"><%= locals.message %> </p>
+       <% } }%> 
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          id="uname"
+          <% var classname="input"
+          if(!locals.removeAndRefresh){
+             if(locals.message){
+              if(locals.name){%>
+                value = "<%= locals.name %>" 
+              <%} 
+              else{ 
+                classname = 'input red'; 
+              }
+          }}%> 
+            class="<%= classname %>" 
+            autocomplete="off" 
+            required />
+        <input
+          type="password"
+          name="password"
+          id="pass"
+          <% var classpass="input";
+          if(!locals.removeAndRefresh){
+              if(locals.message){
+                if(locals.passkey){%>
+                value = "<%= locals.passkey %>" 
+              <%} 
+              else{ 
+                classpass = 'input red'; 
+              }
+            }}
+        %>
+        class="<%= classpass %>" 
+        placeholder="Password"
+        required />
+        <select name="position" class="select" id="position" required>
+          <option value="select">--Select position--</option>
+          <option value="admin">Admin</option>
+          <option value="pharmacist">Pharmacist</option>
+          <option value="cashier">Cashier</option>
+          <option value="manager">Manager</option>
+        </select>
+        <input type="submit" name="submit" value="Login" class="submit" />
+      </form>
+      <a href="/signup" class="signup">Don't have an account Signup</a>
+    </section>
+  </body>
+  <script src="./js/loginPage.js"></script>
+</html>
